@@ -1,9 +1,25 @@
+'use client';
+
+
 import { ProductType } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from 'react';
+
 
 const ProductCard = ({ product }: { product: ProductType; }) => {
+  const [ productTypes, setProductTypes ] = useState({
+    size: product.sizes[0],
+    color: product.colors[0]
+  });
+
+  function handleProductType({ type, value }: { type: 'size' | 'color'; value: string; }) {
+    setProductTypes((prev) => ({
+      ...prev,
+      [type]: value
+    }));
+  }
   return (
     <div className="shadow-lg rounded-lg overflow-hidden">
 
@@ -30,6 +46,7 @@ const ProductCard = ({ product }: { product: ProductType; }) => {
             <select
               name="size"
               id="size"
+              onChange={(e) => handleProductType({type: 'size', value: e.target.value})}
               className="ring ring-gray-300 rounded-md px-2 py-1"
             >
               {product.sizes.map((size) => (
@@ -45,7 +62,11 @@ const ProductCard = ({ product }: { product: ProductType; }) => {
             <span className="text-gray-500">Color</span>
             <div className="flex items-center gap-2">
               {product.colors.map((color) => (
-                <div key={color} className="cursor-pointer ">
+                <div key={color} className={`cursor-pointer border ${
+                  productTypes.color === color ? 'border-gray-400': 'border-gray-200'
+                } rounded-full p-[1.2px]`}
+                onClick={()=>handleProductType({type:'color', value: color})}
+                >
                   <div
                     className="w-3.5 h-3.5 rounded-full"
                     style={{

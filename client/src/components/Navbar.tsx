@@ -1,12 +1,10 @@
-
 import Link from 'next/link';
 import Image from 'next/image';
 import SearchBar from './Searchbar';
 import { Bell, Home, ShoppingCart } from 'lucide-react';
 
-
-
 const Navbar = () => {
+
   return (
     <nav className='w-full flex justify-between items-center border-b border-gray-200 pb-4 pt-3'>
       {/* Left */}
