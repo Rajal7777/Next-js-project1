@@ -9,6 +9,8 @@ import {
     Hand,
     Venus,
 } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 
 
 const categories = [
@@ -55,13 +57,29 @@ const categories = [
 ];
 
 const Categories = () => {
+  const searchParams = useSearchParams();  //gives acess to current URL query  -> /products?category=shoes&page=2 after ?
+  const router = useRouter();
+  const pathname = usePathname(); // -> /products //route path 
+
+  const selectedCategory = searchParams.get('category'); //shoes
+
+  const handleChange = (value: string | null) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('category', value || 'all');
+    router.push(`${pathname}?${params.toString()}`, {scroll: false})
+  }
+
+
+    console.log(selectedCategory);
     return (
         <div
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 bg-gray-100 p-2 rounded-lg mb-4 text-sm ">
             {categories.map((category) => (
                 <div
-                    className="flex items-center gap-2 cursor-pointer px-2 py-1 rounded-sm"
-                    key={category.name}>
+                    className={`flex items-center gap-2 cursor-pointer px-2 py-1 rounded-sm ${category.slug === selectedCategory ? 'bg-white' : 'text-gary-500'}`}
+                    key={category.name}
+                    onClick={() => handleChange(category.slug)}
+                    >
                     {category.icon}
                     {category.name}
                 </div>

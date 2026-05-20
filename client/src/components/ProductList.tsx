@@ -124,7 +124,7 @@ const ProductList = () => {
                     <ProductCard key={product.id} product={product} />
                 ))}
             </div>
-        </div>
+        </div> 
     );
 };
 

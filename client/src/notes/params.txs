@@ -1,0 +1,21 @@
+const params = new URLSearchParams();
+params.set('search', 'react');
+params.set('limit', '10');
+
+console.log(params.toString()); // Output: "search=react&limit=10"
+
+
+`${pathname}?${params.toString()}`
+If:
+pathname = "/products"
+and params:   and params:
+Final URL becomes:   Final URL becomes:
+
+
+9. { scroll: false }
+
+Normally when route changes, page scrolls to top.
+
+This prevents that.
+
+So user stays at same scroll position.
