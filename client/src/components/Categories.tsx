@@ -67,7 +67,7 @@ const Categories = () => {
 
   const handleChange = (value: string | null) => {
     const params = new URLSearchParams(searchParams);
-    params.set('category', value || 'all');   //creates category parameter
+    params.set('category', value || 'all');   //creates/update category(key) parameter(value)
     router.push(`${pathname}?${params.toString()}`, {scroll: false})
   }
 
