@@ -1,0 +1,10 @@
+1. searchParams
+Suppose your URL is: /?category=shoes
+{searchParams}: Destructures the incoming page properties to get the URL query parameters (the part after the ? in a URL).
+searchParams contains { category: 'shoes'}  //It represents the query parameters from the URL.
+
+searchParams: Promise<{ category: string }>
+searchParamas returns a Promise -> it eventually returns an object.
+Promise.resolve({
+  category: "shoes"
+})
