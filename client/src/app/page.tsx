@@ -12,7 +12,7 @@ const category = (await searchParams).category
         {/* using Image the parent container must have the position relative not static and must give the size while using the fill property */}
         <Image src='/featured.png' alt="Product banner photo" fill />
       </div>
-      <ProductList  category={category}/>
+      <ProductList  category={category} params='homepage' />
 
     </div>
   );
