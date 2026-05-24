@@ -66,7 +66,7 @@ const Categories = () => {
   const selectedCategory = searchParams.get('category'); //shoes
 
   const handleChange = (value: string | null) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams);  //returns "?category  =shoes&size=10&size=11";
     params.set('category', value || 'all');   //creates/update category(key) parameter(value)
     router.push(`${pathname}?${params.toString()}`, {scroll: false})
   }

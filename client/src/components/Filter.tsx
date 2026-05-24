@@ -7,7 +7,7 @@ const Filter = () => {
     const pathname = usePathname();
 
     function handleFilter(value: string){
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams); //bag/shoes //newest
         params.set('sort', value);
         router.push(`${pathname}?${params.toString()}`, { scroll: false})
     }

@@ -42,7 +42,7 @@ const ProductCard = ({ product }: { product: ProductType; }) => {
         {/* Product Types */}
         <div className="flex items-center gap-4 text-xs">
           {/* Size */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 items-center">
             <span className="text-gray-500">Size</span>
             <select
               name="size"
