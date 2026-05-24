@@ -1,5 +1,6 @@
+import { paymentFormSchema } from './types';
 import { z } from 'zod';
- 
+
 export type ProductType = {
     id: string | number;
     name: string;
@@ -17,21 +18,38 @@ export type CartItemType = ProductType & {
     quantity: number;
     selectedSize: string;
     selectedColor: string;
-}
+};
 
 export type CartItemsType = CartItemType[];
 
 
 export const shippingFormSchema = z.object({
     name: z.string().min(3, 'Name is required!'),
-    email: z.string().min(5,'Email is required!'),
+    email: z.string().min(5, 'Email is required!'),
     phone: z
-    .string()
-    .min(8, 'Phone number met be between 7 to 10 digits!')
-    .max(11,'Phone number must be between 7 and 10 digits!')
-    .regex(/^\d+$/, 'Phone number must contain only numbers!'),
-    address: z.string().min(5, 'City is Required!'),
+        .string()
+        .min(8, 'Phone number met be between 7 to 10 digits!')
+        .max(11, 'Phone number must be between 7 and 10 digits!')
+        .regex(/^\d+$/, 'Phone number must contain only numbers!'),
+    address: z.string().min(5, 'Address is Required!'),
     city: z.string().min(5, 'City is required!')
-})
+});
 
 export type ShippingFormInputs = z.infer<typeof shippingFormSchema>;
+
+export const paymentFormSchema = z.object({
+    cardHolder: z.string().min(5, 'Card holder is required!'),
+    cardNumber: z
+        .string()
+        .min(16, 'Card number is required!')
+        .max(16, 'Card number is required'),
+        expirationDate :z
+        .string()
+        .regex(
+            /^(0[1-9]|1[0-2])\/\d{2}$/,
+            "Expiration date must be in MM/YY format!"
+        ),
+        cvv: z.string().min(3,'CVV is required').max(3, 'SVV is required')
+});
+
+export type PaymentFormInputs = z.infer<typeof paymentFormSchema>;

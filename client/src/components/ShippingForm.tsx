@@ -92,7 +92,7 @@ const ShippingForm = ({
                     type="text"
                     id="city"
                     placeholder=""
-                    {...register('address')}
+                    {...register('city')}
                 />
                 {errors.city && (
                     <p className="text-xs text-red-500">{errors.city.message}</p>
