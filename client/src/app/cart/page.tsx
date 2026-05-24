@@ -1,11 +1,12 @@
 'use client';
 
-import { CartItemsType } from "@/types";
+import { CartItemsType, ShippingFormInputs } from "@/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import ShippingForm from "@/components/ShippingForm";
 import Paymentform from "@/components/Paymentform";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 
 const steps = [
@@ -84,8 +85,8 @@ const cartItems: CartItemsType = [
 //useSearchParams returns -> {step: "2"}
 const CartPage = () => {
   const searchParams = useSearchParams();
-  console.log(searchParams);
-  const router = useRouter();
+ const router = useRouter();
+ const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
 
   const activeStep = parseInt(searchParams.get('step') || '1');
 
@@ -149,10 +150,10 @@ const CartPage = () => {
             </>
           )}
 
-          {activeStep === 2 && <ShippingForm />}
+          {activeStep === 2 && <ShippingForm setShippingForm={setShippingForm}/>}
           {activeStep === 3 && <Paymentform />}
 
-          {activeStep !== 1 && activeStep !== 2 && activeStep !== 3 && (
+          {!activeStep && !shippingForm && (
             <p className="text-sm text-gray-500">Please fill in the shipping form to continue.</p>
           )}
 
