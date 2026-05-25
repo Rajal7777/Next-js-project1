@@ -1,28 +1,46 @@
-'use client';
+"use client";
 
-
+import useCartStore from "@/stores/cartStore";
 import { ProductType } from "@/types";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from 'react';
+import { useState } from "react";
+import { toast } from "react-toastify";
 
-
-const ProductCard = ({ product }: { product: ProductType; }) => {
+const ProductCard = ({ product }: { product: ProductType }) => {
   const [productTypes, setProductTypes] = useState({
     size: product.sizes[0],
-    color: product.colors[0]
+    color: product.colors[0],
   });
 
-  function handleProductType({ type, value }: { type: 'size' | 'color'; value: string; }) {
+  const { addToCart } = useCartStore();
+
+  function handleAddToCart(){
+    addToCart({
+      ...product,
+      quantity: 1,
+      selectedSize: productTypes.size,
+      selectedColor: productTypes.color
+    });
+    toast.success('Product added to cart')
+  }
+
+  function handleProductType({
+    type,
+    value,
+  }: {
+    type: "size" | "color";
+    value: string;
+  }) {
     setProductTypes((prev) => ({
       ...prev,
-      [type]: value
+      [type]: value,
     }));
   }
+
   return (
     <div className="shadow-lg rounded-lg overflow-hidden">
-
       <Link href={`/products/${product.id}`}>
         <div className="relative w-full aspect-2/3">
           <Image
@@ -47,7 +65,9 @@ const ProductCard = ({ product }: { product: ProductType; }) => {
             <select
               name="size"
               id="size"
-              onChange={(e) => handleProductType({ type: 'size', value: e.target.value })}
+              onChange={(e) =>
+                handleProductType({ type: "size", value: e.target.value })
+              }
               className="ring ring-gray-300 rounded-md px-2 py-1"
             >
               {product.sizes.map((size) => (
@@ -63,9 +83,16 @@ const ProductCard = ({ product }: { product: ProductType; }) => {
             <span className="text-gray-500">Color</span>
             <div className="flex items-center gap-2">
               {product.colors.map((color) => (
-                <div key={color} className={`cursor-pointer border ${productTypes.color === color ? 'border-gray-400' : 'border-gray-200'
+                <div
+                  key={color}
+                  className={`cursor-pointer border ${
+                    productTypes.color === color
+                      ? "border-gray-400"
+                      : "border-gray-200"
                   } rounded-full p-[1.2px]`}
-                  onClick={() => handleProductType({ type: 'color', value: color })}
+                  onClick={() =>
+                    handleProductType({ type: "color", value: color })
+                  }
                 >
                   <div
                     className="w-3.5 h-3.5 rounded-full"
@@ -79,11 +106,12 @@ const ProductCard = ({ product }: { product: ProductType; }) => {
           </div>
         </div>
 
-
         {/* cart */}
         <div className="flex items-center justify-between">
           <p>${product.price.toFixed(2)}</p>
-          <button className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all duration-300 flex items-center gap-2">
+          <button
+          onClick={handleAddToCart}
+          className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all duration-300 flex items-center gap-2">
             <ShoppingCart className="w-4 h-4" />
             Add To Cart
           </button>
