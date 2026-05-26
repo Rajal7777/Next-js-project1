@@ -18,7 +18,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
   function handleAddToCart(){
     addToCart({
-      ...product,
+      ...product,  //Spread operator copies all existing properties from a product object
       quantity: 1,
       selectedSize: productTypes.size,
       selectedColor: productTypes.color
