@@ -22,7 +22,7 @@ const product: ProductType = {
 };
 
 //Next js function It dynamically creates SEO metadata for the page.
-//params -> inside dynamic routes/products/[id] so we get /products/1 // params.id === "1"
+//params -> inside dynamic routes/products/[id] so we get /products/1 // params.id === "1" ....
 export const generateMetadata = async ({ params, }: { params: { id: string; }; }) => {
     //get the product from db
     return {
