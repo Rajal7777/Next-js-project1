@@ -2,7 +2,7 @@ import ProductInteraction from "@/components/ProductInteraction";
 import { ProductType } from "@/types";
 import Image from "next/image";
 
-
+//test git push
 //TEMPORARY
 const product: ProductType = {
     id: 1,
